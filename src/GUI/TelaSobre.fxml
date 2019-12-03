@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="383.0" prefWidth="608.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <Label alignment="CENTER" prefHeight="36.0" prefWidth="611.0" text="Sobre o Sistema" textFill="#3d3d65">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" top="15.0" />
+         </VBox.margin>
+      </Label>
+      <Label prefHeight="26.0" prefWidth="578.0" text="Sistema feito em JavaFX para o curso de Java do Professor Nélio Alves.">
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" top="10.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+      <Label prefHeight="17.0" prefWidth="626.0" text="-&gt; Integração aos Diferentes tipos de Banco de Dados">
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+      </Label>
+      <Label prefHeight="17.0" prefWidth="626.0" text="-&gt; Responsível e Adaptável aos diferentes tipos de Tela">
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
+      </Label>
+      <Label prefHeight="17.0" prefWidth="626.0" text="-&gt; Passível à modificações">
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
+      </Label>
+      <Label prefHeight="17.0" prefWidth="626.0" text="-&gt; Sistema Simples, porém versátil">
+         <padding>
+            <Insets left="25.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</VBox>

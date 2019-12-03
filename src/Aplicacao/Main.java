@@ -8,6 +8,13 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	
+	private static Scene telaPrincipal;
+	
+	public static Scene getTelaPrincipal() {
+		return telaPrincipal;
+	}
+	
 	@Override
 	public void start(Stage palco) {
 		try {
@@ -18,7 +25,7 @@ public class Main extends Application {
 			carregamentoScroll.setFitToHeight(true);
 			carregamentoScroll.setFitToWidth(true);
 			
-			Scene telaPrincipal = new Scene(carregamentoScroll );
+			telaPrincipal = new Scene(carregamentoScroll );
 			palco.setScene(telaPrincipal);
 			palco.setTitle("Aplicação Crud JavaFX");
 			palco.show();
