@@ -2,8 +2,8 @@ package Aplicacao;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 
@@ -13,8 +13,12 @@ public class Main extends Application {
 		try {
 			
 			FXMLLoader carregamentoTela = new FXMLLoader(getClass().getResource("/GUI/TelaPrincipal.fxml"));
-			Parent carregar = carregamentoTela.load();
-			Scene telaPrincipal = new Scene(carregar);
+			ScrollPane carregamentoScroll = carregamentoTela.load();
+			
+			carregamentoScroll.setFitToHeight(true);
+			carregamentoScroll.setFitToWidth(true);
+			
+			Scene telaPrincipal = new Scene(carregamentoScroll );
 			palco.setScene(telaPrincipal);
 			palco.setTitle("Aplicação Crud JavaFX");
 			palco.show();
