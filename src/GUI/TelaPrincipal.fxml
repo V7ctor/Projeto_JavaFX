@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="689.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.TelaPrincipalControlador">
    <content>
       <VBox prefHeight="453.0" prefWidth="624.0">
          <children>
@@ -14,13 +14,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Cadastros">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Vendedor" />
-                        <MenuItem mnemonicParsing="false" text="Departamento" />
+                    <MenuItem fx:id="menuItemVendedor" mnemonicParsing="false" onAction="#onMenuItemVendedorAction" text="Vendedor" />
+                        <MenuItem fx:id="menuItemDepartamento" mnemonicParsing="false" onAction="#onMenuItemDepartamentoAction" text="Departamento" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Sobre" />
+                    <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sobre" />
                   </items>
                 </Menu>
               </menus>
