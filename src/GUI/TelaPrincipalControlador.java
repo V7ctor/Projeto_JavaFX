@@ -34,7 +34,7 @@ public class TelaPrincipalControlador implements Initializable{
 	
 	@FXML
 	public void onMenuItemDepartamentoAction() {
-		System.out.println("Menu do departamento!!!");
+		carregarView("/GUI/TelaDepartamentoLista.fxml");
 	}
 	
 	@FXML
