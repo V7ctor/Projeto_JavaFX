@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Aplicacao.Main;
 import GUI.util.Alertas;
+import Modelo.Servicos.ServicoDepartamento;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,9 +35,9 @@ public class TelaPrincipalControlador implements Initializable{
 	
 	@FXML
 	public void onMenuItemDepartamentoAction() {
-		carregarView("/GUI/TelaDepartamentoLista.fxml");
+		carregarView2("/GUI/TelaDepartamentoLista.fxml");
 	}
-	
+
 	@FXML
 	public void onMenuItemSobreAction() {
 		carregarView("/GUI/TelaSobre.fxml");
@@ -69,6 +70,31 @@ public class TelaPrincipalControlador implements Initializable{
 		}
 	}
 
+	private synchronized void carregarView2(String caminho) {
+		
+		try {
+			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
+			VBox novoVBox = carregar.load();
+			
+			Scene telaPrincipal = Main.getTelaPrincipal();
+						
+			VBox telaVBox = (VBox) ((ScrollPane) telaPrincipal.getRoot()).getContent();
+			
+			Node menuTela = telaVBox.getChildren().get(0);
+			
+			telaVBox.getChildren().clear();
+			telaVBox.getChildren().add(menuTela);
+			telaVBox.getChildren().addAll(novoVBox.getChildren());
+			
+			DepartamentoListaControle dep = carregar.getController();
+			dep.setServico(new ServicoDepartamento());
+			dep.updateTabela();
+			
+
+		} catch (IOException e) {
+			Alertas.mostrarAlerta("IOException!!", "Erro ao tentar Localizar Tela!", e.getMessage(), AlertType.ERROR);
+		}
+	}
 }
 
 
