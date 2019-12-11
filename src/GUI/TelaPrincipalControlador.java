@@ -3,6 +3,7 @@ package GUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import Aplicacao.Main;
 import GUI.util.Alertas;
@@ -35,12 +36,15 @@ public class TelaPrincipalControlador implements Initializable{
 	
 	@FXML
 	public void onMenuItemDepartamentoAction() {
-		carregarView2("/GUI/TelaDepartamentoLista.fxml");
+		carregarView("/GUI/TelaDepartamentoLista.fxml", (DepartamentoListaControle controlador) -> {
+			controlador.setServico(new ServicoDepartamento());
+			controlador.updateTabela();
+		});
 	}
 
 	@FXML
 	public void onMenuItemSobreAction() {
-		carregarView("/GUI/TelaSobre.fxml");
+		carregarView("/GUI/TelaSobre.fxml", x -> {});
 	}
 	
 	@Override
@@ -48,7 +52,7 @@ public class TelaPrincipalControlador implements Initializable{
 		
 	}
 	
-	private synchronized void carregarView(String caminho) {
+	private synchronized <T> void  carregarView(String caminho, Consumer<T> InicializarControlador) {
 		
 		try {
 			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
@@ -64,32 +68,8 @@ public class TelaPrincipalControlador implements Initializable{
 			telaVBox.getChildren().add(menuTela);
 			telaVBox.getChildren().addAll(novoVBox.getChildren());
 			
-
-		} catch (IOException e) {
-			Alertas.mostrarAlerta("IOException!!", "Erro ao tentar Localizar Tela!", e.getMessage(), AlertType.ERROR);
-		}
-	}
-
-	private synchronized void carregarView2(String caminho) {
-		
-		try {
-			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
-			VBox novoVBox = carregar.load();
-			
-			Scene telaPrincipal = Main.getTelaPrincipal();
-						
-			VBox telaVBox = (VBox) ((ScrollPane) telaPrincipal.getRoot()).getContent();
-			
-			Node menuTela = telaVBox.getChildren().get(0);
-			
-			telaVBox.getChildren().clear();
-			telaVBox.getChildren().add(menuTela);
-			telaVBox.getChildren().addAll(novoVBox.getChildren());
-			
-			DepartamentoListaControle dep = carregar.getController();
-			dep.setServico(new ServicoDepartamento());
-			dep.updateTabela();
-			
+			T controle = carregar.getController();
+			InicializarControlador.accept(controle);
 
 		} catch (IOException e) {
 			Alertas.mostrarAlerta("IOException!!", "Erro ao tentar Localizar Tela!", e.getMessage(), AlertType.ERROR);

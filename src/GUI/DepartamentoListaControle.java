@@ -62,7 +62,7 @@ public class DepartamentoListaControle implements Initializable {
 		if (servico == null){
 			throw new IllegalStateException("Servico deve ser instanciado!");
 		}
-		List<Departamento> lista = ServicoDepartamento.pesquisarTodos();
+		List<Departamento> lista = servico.pesquisarTodos();
 		obsLista = FXCollections.observableArrayList(lista);
 		tabelaDepartamento.setItems(obsLista);
 		
