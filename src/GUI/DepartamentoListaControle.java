@@ -47,7 +47,8 @@ public class DepartamentoListaControle implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent evento) {
 		Stage stagePai = Utils.stageAtual(evento);
-		criarTelaFormulario("/GUI/DepartamentoCadastro.fxml", stagePai);
+		Departamento obj = new Departamento();	
+		criarTelaFormulario(obj, "/GUI/DepartamentoCadastro.fxml", stagePai);
 	}
 	
 	public void setServico(ServicoDepartamento servico) {
@@ -77,10 +78,14 @@ public class DepartamentoListaControle implements Initializable {
 		tabelaDepartamento.setItems(obsLista);
 	}
 	
-	private void criarTelaFormulario(String caminho, Stage stageOriginario) {
+	private void criarTelaFormulario(Departamento obj, String caminho, Stage stageOriginario) {
 		try {
 			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
 			Pane painel = carregar.load();
+			
+			DepartamentoCadastroControlador controlador = carregar.getController();
+			controlador.setDepartamento(obj);
+			controlador.updateDadosFormulario();
 			
 			Stage novaTela = new Stage();
 			novaTela.setTitle("Entre com os Dados do Departamento");
