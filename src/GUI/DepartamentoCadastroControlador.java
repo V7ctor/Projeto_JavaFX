@@ -1,19 +1,28 @@
 package GUI;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import BD.DBExcecao;
+import GUI.util.Alertas;
 import GUI.util.Restricoes;
+import GUI.util.Utils;
 import Modelo.Entidades.Departamento;
+import Modelo.Servicos.ServicoDepartamento;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class DepartamentoCadastroControlador implements Initializable{
 	
 	private Departamento entidade;
+	
+	private ServicoDepartamento servico;
 	
 	@FXML 
 	private TextField campoId;
@@ -37,15 +46,38 @@ public class DepartamentoCadastroControlador implements Initializable{
 		this.entidade = entidade;
 	}
 	
-	@FXML
-	public void onBotaoCadastrarAction() {
-		
-		System.out.println("Cadastrar");
+	public void setServico(ServicoDepartamento servico) {
+		this.servico = servico;
 	}
 	
 	@FXML
-	public void onBotaoCancelarAction() {
-		System.out.println("Cancelar");
+	public void onBotaoCadastrarAction(ActionEvent evento) {
+		if (entidade == null) {
+			throw new IllegalStateException("Entidade está nula!");
+		}
+		if (servico == null) {
+			throw new IllegalStateException("Serviço está valendo nulo!");
+		}
+		try {
+			entidade = getDadosFormulario();
+			servico.salvarOuAtualizar(entidade);
+			Utils.stageAtual(evento).close();	
+		}catch (DBExcecao e) {
+			Alertas.mostrarAlerta("Erro ao Salvar Objeto!", null, e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+	private Departamento getDadosFormulario() {
+		Departamento obj = new Departamento();
+		obj.setId(Utils.converToInt(campoId.getText()));
+		obj.setNome(campoNome.getText());
+		
+		return obj;
+	}
+
+	@FXML
+	public void onBotaoCancelarAction(ActionEvent evento) {
+		Utils.stageAtual(evento).close();
 	}
 	
 	@Override

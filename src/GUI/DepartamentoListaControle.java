@@ -85,6 +85,7 @@ public class DepartamentoListaControle implements Initializable {
 			
 			DepartamentoCadastroControlador controlador = carregar.getController();
 			controlador.setDepartamento(obj);
+			controlador.setServico(new ServicoDepartamento());
 			controlador.updateDadosFormulario();
 			
 			Stage novaTela = new Stage();

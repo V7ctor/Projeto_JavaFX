@@ -13,5 +13,13 @@ public class ServicoDepartamento {
 	public List<Departamento> pesquisarTodos(){
 		return dao.encontrarTodos();
 	}
+	
+	public void salvarOuAtualizar(Departamento depto) {	
+		if (depto.getId() == null) {
+			dao.inserirDados(depto);
+		}else {
+			dao.atualizarDados(depto);
+		}
+	}
 }
 

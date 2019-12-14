@@ -62,7 +62,7 @@
       </GridPane>
       <HBox layoutX="102.0" layoutY="98.0" prefHeight="45.0" prefWidth="200.0">
          <children>
-            <Button fx:id="botaoCadastrar" mnemonicParsing="false" onAction="#onBotaoCadastrarAction" text="Cadastrar">
+            <Button fx:id="botaoCadastrar" mnemonicParsing="false" onAction="#onBotaoCadastrarAction" prefHeight="25.0" prefWidth="58.0" text="Salvar">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
