@@ -3,7 +3,9 @@ package GUI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import BD.DBExcecao;
 import GUI.Listeners.ObservadorEventos;
@@ -11,6 +13,7 @@ import GUI.util.Alertas;
 import GUI.util.Restricoes;
 import GUI.util.Utils;
 import Modelo.Entidades.Departamento;
+import Modelo.Excecoes.ValidacaoExcecao;
 import Modelo.Servicos.ServicoDepartamento;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,8 +73,12 @@ public class DepartamentoCadastroControlador implements Initializable{
 			entidade = getDadosFormulario();
 			servico.salvarOuAtualizar(entidade);
 			notificarListeners();
-			Utils.stageAtual(evento).close();	
-		}catch (DBExcecao e) {
+			Utils.stageAtual(evento).close();
+			
+		}catch (ValidacaoExcecao e) {
+			setErroMensagemLabel(e.getError());
+		}
+		catch (DBExcecao e) {
 			Alertas.mostrarAlerta("Erro ao Salvar Objeto!", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -84,9 +91,20 @@ public class DepartamentoCadastroControlador implements Initializable{
 
 	private Departamento getDadosFormulario() {
 		Departamento obj = new Departamento();
+
+		ValidacaoExcecao excecao = new ValidacaoExcecao("Erro de validação de Campos.");
+		
 		obj.setId(Utils.converToInt(campoId.getText()));
+		
+		if (campoNome.getText() == null || campoNome.getText().trim().equals("")) {
+			excecao.addErro("Nome", "Campo não pode estar vazio");
+		}
+		
 		obj.setNome(campoNome.getText());
 		
+		if (excecao.getError().size() != 0) {
+			throw excecao;
+		}
 		return obj;
 	}
 
@@ -111,6 +129,14 @@ public class DepartamentoCadastroControlador implements Initializable{
 		}
 		campoId.setText(String.valueOf(entidade.getId()));
 		campoNome.setText(entidade.getNome());
+	}
+	
+	private void setErroMensagemLabel (Map<String, String> erro) {
+		Set<String> campos = erro.keySet();
+		
+		if (campos.contains("Nome")) {
+			lblErroNome.setText(erro.get("Nome"));
+		}
 	}
 
 }
