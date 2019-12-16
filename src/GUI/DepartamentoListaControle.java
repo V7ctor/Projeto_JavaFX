@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Aplicacao.Main;
+import GUI.Listeners.ObservadorEventos;
 import GUI.util.Alertas;
 import GUI.util.Utils;
 import Modelo.Entidades.Departamento;
@@ -26,7 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class DepartamentoListaControle implements Initializable {
+public class DepartamentoListaControle implements Initializable, ObservadorEventos {
 
 	private ServicoDepartamento servico;
 	
@@ -86,6 +87,7 @@ public class DepartamentoListaControle implements Initializable {
 			DepartamentoCadastroControlador controlador = carregar.getController();
 			controlador.setDepartamento(obj);
 			controlador.setServico(new ServicoDepartamento());
+			controlador.inscricaoListener(this);
 			controlador.updateDadosFormulario();
 			
 			Stage novaTela = new Stage();
@@ -99,5 +101,10 @@ public class DepartamentoListaControle implements Initializable {
 		}catch (IOException e) {
 			Alertas.mostrarAlerta("IOException", "Erro ao Abrir Tela: ", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDadosAlterados() {
+		updateTabela();
 	}
 }

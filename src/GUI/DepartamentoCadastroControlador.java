@@ -1,10 +1,12 @@
 package GUI;
 
 import java.net.URL;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import BD.DBExcecao;
+import GUI.Listeners.ObservadorEventos;
 import GUI.util.Alertas;
 import GUI.util.Restricoes;
 import GUI.util.Utils;
@@ -13,16 +15,18 @@ import Modelo.Servicos.ServicoDepartamento;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 
 public class DepartamentoCadastroControlador implements Initializable{
 	
 	private Departamento entidade;
 	
 	private ServicoDepartamento servico;
+	
+	private List<ObservadorEventos> observadorEventos = new ArrayList<>();
 	
 	@FXML 
 	private TextField campoId;
@@ -50,6 +54,10 @@ public class DepartamentoCadastroControlador implements Initializable{
 		this.servico = servico;
 	}
 	
+	public void inscricaoListener(ObservadorEventos listener) {
+		observadorEventos.add(listener);
+	}
+	
 	@FXML
 	public void onBotaoCadastrarAction(ActionEvent evento) {
 		if (entidade == null) {
@@ -61,12 +69,19 @@ public class DepartamentoCadastroControlador implements Initializable{
 		try {
 			entidade = getDadosFormulario();
 			servico.salvarOuAtualizar(entidade);
+			notificarListeners();
 			Utils.stageAtual(evento).close();	
 		}catch (DBExcecao e) {
 			Alertas.mostrarAlerta("Erro ao Salvar Objeto!", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
+	private void notificarListeners() {
+		for (ObservadorEventos listener : observadorEventos) {
+			listener.onDadosAlterados();
+		}
+	}
+
 	private Departamento getDadosFormulario() {
 		Departamento obj = new Departamento();
 		obj.setId(Utils.converToInt(campoId.getText()));
