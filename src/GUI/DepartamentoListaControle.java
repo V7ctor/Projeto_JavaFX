@@ -11,6 +11,7 @@ import GUI.util.Alertas;
 import GUI.util.Utils;
 import Modelo.Entidades.Departamento;
 import Modelo.Servicos.ServicoDepartamento;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,7 +32,7 @@ import javafx.stage.Stage;
 public class DepartamentoListaControle implements Initializable, ObservadorEventos {
 
 	private ServicoDepartamento servico;
-	
+
 	@FXML
 	private TableView<Departamento> tabelaDepartamento;
 
@@ -41,17 +43,20 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 	private TableColumn<Departamento, String> colunaNome;
 
 	@FXML
+	private TableColumn<Departamento, Departamento> colunaEditar;
+
+	@FXML
 	private Button btNovo;
-	
+
 	private ObservableList<Departamento> obsLista;
 
 	@FXML
 	public void onBtNovoAction(ActionEvent evento) {
 		Stage stagePai = Utils.stageAtual(evento);
-		Departamento obj = new Departamento();	
+		Departamento obj = new Departamento();
 		criarTelaFormulario(obj, "/GUI/DepartamentoCadastro.fxml", stagePai);
 	}
-	
+
 	public void setServico(ServicoDepartamento servico) {
 		this.servico = servico;
 	}
@@ -59,7 +64,7 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		iniciarNodes();
-		
+
 	}
 
 	private void iniciarNodes() {
@@ -71,25 +76,26 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 	}
 
 	public void updateTabela() {
-		if (servico == null){
+		if (servico == null) {
 			throw new IllegalStateException("Servico deve ser instanciado!");
 		}
 		List<Departamento> lista = servico.pesquisarTodos();
 		obsLista = FXCollections.observableArrayList(lista);
 		tabelaDepartamento.setItems(obsLista);
+		iniciarBotoesEditar();
 	}
-	
+
 	private void criarTelaFormulario(Departamento obj, String caminho, Stage stageOriginario) {
 		try {
 			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
 			Pane painel = carregar.load();
-			
+
 			DepartamentoCadastroControlador controlador = carregar.getController();
 			controlador.setDepartamento(obj);
 			controlador.setServico(new ServicoDepartamento());
 			controlador.inscricaoListener(this);
 			controlador.updateDadosFormulario();
-			
+
 			Stage novaTela = new Stage();
 			novaTela.setTitle("Entre com os Dados do Departamento");
 			novaTela.setScene(new Scene(painel));
@@ -98,7 +104,7 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 			novaTela.initModality(Modality.WINDOW_MODAL);
 			novaTela.showAndWait();
 
-		}catch (IOException e) {
+		} catch (IOException e) {
 			Alertas.mostrarAlerta("IOException", "Erro ao Abrir Tela: ", e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -107,4 +113,24 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 	public void onDadosAlterados() {
 		updateTabela();
 	}
-}
+
+	private void iniciarBotoesEditar() {
+		colunaEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		colunaEditar.setCellFactory(param -> new TableCell<Departamento, Departamento>() {
+			private final Button botao = new Button("Editar");
+
+			@Override
+			protected void updateItem(Departamento obj, boolean vazio) {
+				super.updateItem(obj, vazio);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(botao);
+				botao.setOnAction(
+						evento -> criarTelaFormulario(obj, "/GUI/DepartamentoCadastro.fxml", 
+								Utils.stageAtual(evento)));
+			}
+		});
+	}
+} 

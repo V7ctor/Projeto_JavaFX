@@ -34,6 +34,8 @@
         <columns>
           <TableColumn fx:id="colunaID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colunaNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="colunaEditar" prefWidth="75.0" text="Atualizar" />
+            <TableColumn prefWidth="75.0" text="Deletar" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
