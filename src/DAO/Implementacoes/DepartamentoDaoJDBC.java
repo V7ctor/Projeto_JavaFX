@@ -10,6 +10,7 @@ import java.util.List;
 
 import BD.Conexao;
 import BD.DBExcecao;
+import BD.DBExcecaoIntegracao;
 import DAO.DepartamentoDAO;
 import Modelo.Entidades.Departamento;
 
@@ -77,13 +78,13 @@ public class DepartamentoDaoJDBC implements DepartamentoDAO {
 	public void excluirPerID(Integer Id) {
 		
 		try {
-			pst = conn.prepareStatement("DELETE FROM tbdepartamento WHERE Id = ?");
+			pst = conn.prepareStatement("DELETE FROM tbdepartamento WHERE ID = ?");
 			
 			pst.setInt(1, Id);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DBExcecaoIntegracao(e.getMessage());
 		}
 		
 	}

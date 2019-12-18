@@ -12,16 +12,14 @@
 
 <VBox prefHeight="448.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DepartamentoListaControle">
    <children>
-      <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="33.0" prefWidth="574.0" text="Registros Departamento" textAlignment="CENTER" textFill="#49466f">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="245.0" text="Registros Departamento" textAlignment="CENTER" textFill="#070157">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
          <padding>
             <Insets left="30.0" right="30.0" />
-         </padding></Label>
+         </padding>
+      </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo">
@@ -35,7 +33,7 @@
           <TableColumn fx:id="colunaID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colunaNome" prefWidth="75.0" text="Nome" />
             <TableColumn fx:id="colunaEditar" prefWidth="75.0" text="Atualizar" />
-            <TableColumn prefWidth="75.0" text="Deletar" />
+            <TableColumn fx:id="colunaRemover" prefWidth="75.0" text="Deletar" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -21,5 +21,9 @@ public class ServicoDepartamento {
 			dao.atualizarDados(depto);
 		}
 	}
+	
+	public void excluirDepartamento(Departamento depto) {
+		dao.excluirPerID(depto.getId());	
+	}
 }
 
