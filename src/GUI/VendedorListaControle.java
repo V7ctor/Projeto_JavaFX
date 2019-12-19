@@ -1,6 +1,7 @@
 package GUI;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -39,6 +40,15 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 
 	@FXML
 	private TableColumn<Vendedor, String> colunaNome;
+	
+	@FXML
+	private TableColumn<Vendedor, String> colunaEmail;
+	
+	@FXML
+	private TableColumn<Vendedor, Date> colunaDataNascimento;
+	
+	@FXML
+	private TableColumn<Vendedor, Double> colunaSalarioBase;
 
 	@FXML
 	private TableColumn<Vendedor, Vendedor> colunaEditar;
@@ -71,6 +81,11 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 	private void iniciarNodes() {
 		colunaID.setCellValueFactory(new PropertyValueFactory<>("id"));
 		colunaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		colunaEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		colunaDataNascimento.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
+		Utils.formatarTabelaData(colunaDataNascimento, "dd/MM/yyyy");
+		colunaSalarioBase.setCellValueFactory(new PropertyValueFactory<>("salarioBase"));
+		Utils.formatarTabelaDouble(colunaSalarioBase, 2);
 
 		Stage estagioAtual = (Stage) Main.getTelaPrincipal().getWindow();
 		tabelaVendedor.prefHeightProperty().bind(estagioAtual.heightProperty());
