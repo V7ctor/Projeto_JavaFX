@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import Aplicacao.Main;
 import GUI.util.Alertas;
 import Modelo.Servicos.ServicoDepartamento;
+import Modelo.Servicos.ServicoVendedor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +32,10 @@ public class TelaPrincipalControlador implements Initializable{
 	
 	@FXML
 	public void onMenuItemVendedorAction() {
-		System.out.println("Menu do vendedor!!!");
+		carregarView("/GUI/TelaVendedorLista.fxml", (VendedorListaControle controlador) -> {
+			controlador.setServico(new ServicoVendedor());
+			controlador.updateTabela();
+		});
 	}
 	
 	@FXML
