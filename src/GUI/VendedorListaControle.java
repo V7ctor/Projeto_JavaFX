@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,6 +29,8 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class VendedorListaControle implements Initializable, ObservadorEventos {
@@ -103,7 +108,7 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 	}
 
 	private void criarTelaFormulario(Vendedor obj, String caminho, Stage stageOriginario) {
-		/*
+		
 		try {
 			FXMLLoader carregar = new FXMLLoader(getClass().getResource(caminho));
 			Pane painel = carregar.load();
@@ -125,7 +130,7 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 		} catch (IOException e) {
 			Alertas.mostrarAlerta("IOException", "Erro ao Abrir Tela: ", e.getMessage(), AlertType.ERROR);
 		}
-		*/
+		
 	}
 
 	@Override
