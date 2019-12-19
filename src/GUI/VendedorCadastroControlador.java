@@ -1,8 +1,12 @@
 package GUI;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -20,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -36,12 +41,30 @@ public class VendedorCadastroControlador implements Initializable{
 	
 	@FXML 
 	private TextField campoNome;
+	
+	@FXML 
+	private TextField campoEmail;
+	
+	@FXML 
+	private DatePicker dpNascimento;
+	
+	@FXML 
+	private TextField campoBaseSalarial;
 
 	@FXML
 	private Label lblErroId;
 	
 	@FXML
 	private Label lblErroNome;
+	
+	@FXML
+	private Label lblErroEmail;
+	
+	@FXML
+	private Label lblErroNascimento;
+	
+	@FXML
+	private Label lblErroBaseSalarial;
 	
 	@FXML
 	private Button botaoCadastrar;
@@ -120,7 +143,10 @@ public class VendedorCadastroControlador implements Initializable{
 	
 	private void iniciarNodes() {
 		Restricoes.setCampoInteger(campoId);
-		Restricoes.setCampoValorMax(20, campoNome);
+		Restricoes.setCampoValorMax(60, campoNome);
+		Restricoes.setCampoDouble(campoBaseSalarial);
+		Restricoes.setCampoValorMax(60, campoEmail);
+		Utils.formatarDatePicker(dpNascimento, "dd/MM/yyyy");
 	}
 	
 	public void updateDadosFormulario() {
@@ -129,6 +155,14 @@ public class VendedorCadastroControlador implements Initializable{
 		}
 		campoId.setText(String.valueOf(entidade.getId()));
 		campoNome.setText(entidade.getNome());
+		campoEmail.setText(entidade.getEmail());
+		Locale.setDefault(Locale.US);
+		campoBaseSalarial.setText(String.format("%.2f", entidade.getSalarioBase()));
+		if (entidade.getDataNascimento() != null) {
+		dpNascimento.setValue((LocalDate)
+				(LocalDateTime.ofInstant(entidade.getDataNascimento().toInstant(), ZoneId.systemDefault())).toLocalDate());
+		}
+		
 	}
 	
 	private void setErroMensagemLabel (Map<String, String> erro) {

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,17 +12,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="156.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.VendedorCadastroControlador">
+<AnchorPane prefHeight="433.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.VendedorCadastroControlador">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="609.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="77.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="321.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="211.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="369.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="210.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="84.0" text="ID:">
@@ -61,9 +66,64 @@
                   <Insets />
                </GridPane.margin>
             </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="84.0" text="Email:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="84.0" text="Nascimento:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="84.0" text="Base Salarial:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="84.0" text="Departamento:" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
+            <TextField fx:id="campoEmail" prefHeight="20.0" prefWidth="360.0" promptText="Insira um Email para Vendedor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="campoBaseSalarial" prefHeight="20.0" prefWidth="360.0" promptText="Insira um Salário Base para Vendedor" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lblErroEmail" prefHeight="34.0" prefWidth="237.0" textFill="#8a4242" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblErroNascimento" prefHeight="34.0" prefWidth="237.0" textFill="#8a4242" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblErroBaseSalarial" prefHeight="34.0" prefWidth="237.0" textFill="#8a4242" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
+            </Label>
+            <Label fx:id="lblErroId4" prefHeight="34.0" prefWidth="237.0" textFill="#8a4242" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="2.0" />
+               </padding>
+            </Label>
+            <DatePicker fx:id="dpNascimento" prefHeight="25.0" prefWidth="372.0" promptText="Clique no Botão Para escolher a Data de Aniversário" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <HBox layoutX="102.0" layoutY="98.0" prefHeight="45.0" prefWidth="200.0">
+      <HBox layoutX="14.0" layoutY="375.0" prefHeight="45.0" prefWidth="200.0">
          <children>
             <Button fx:id="botaoCadastrar" mnemonicParsing="false" onAction="#onBotaoCadastrarAction" prefHeight="25.0" prefWidth="58.0" text="Salvar">
                <HBox.margin>
