@@ -13,6 +13,7 @@ import GUI.Listeners.ObservadorEventos;
 import GUI.util.Alertas;
 import GUI.util.Utils;
 import Modelo.Entidades.Vendedor;
+import Modelo.Servicos.ServicoDepartamento;
 import Modelo.Servicos.ServicoVendedor;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -115,7 +116,8 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 
 			VendedorCadastroControlador controlador = carregar.getController();
 			controlador.setVendedor(obj);
-			controlador.setServico(new ServicoVendedor());
+			controlador.setServicos(new ServicoVendedor(), new ServicoDepartamento());
+			controlador.carregarObjetosAssociados();
 			controlador.inscricaoListener(this);
 			controlador.updateDadosFormulario();
 
@@ -128,6 +130,7 @@ public class VendedorListaControle implements Initializable, ObservadorEventos {
 			novaTela.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alertas.mostrarAlerta("IOException", "Erro ao Abrir Tela: ", e.getMessage(), AlertType.ERROR);
 		}
 		

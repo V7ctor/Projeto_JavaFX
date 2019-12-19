@@ -112,6 +112,7 @@ public class DepartamentoListaControle implements Initializable, ObservadorEvent
 			novaTela.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alertas.mostrarAlerta("IOException", "Erro ao Abrir Tela: ", e.getMessage(), AlertType.ERROR);
 		}
 	}
