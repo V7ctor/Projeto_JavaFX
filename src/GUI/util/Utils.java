@@ -28,6 +28,15 @@ public class Utils {
 			return null;
 		}
 	}
+	
+	public static Double converToDouble(String arg) {
+		try {
+			return Double.parseDouble(arg);
+
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
 
 	public static <T> void formatarTabelaData(TableColumn<T, Date> colunaTabela, String formato) {
 		colunaTabela.setCellFactory(coluna -> {

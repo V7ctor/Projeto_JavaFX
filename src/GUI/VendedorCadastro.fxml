@@ -88,6 +88,7 @@
                </font>
             </Label>
             <TextField fx:id="campoEmail" prefHeight="20.0" prefWidth="360.0" promptText="Insira um Email para Vendedor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpNascimento" prefHeight="25.0" prefWidth="372.0" promptText="Clique no Botão Para escolher a Data de Aniversário" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="campoBaseSalarial" prefHeight="20.0" prefWidth="360.0" promptText="Insira um Salário Base para Vendedor" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="lblErroEmail" prefHeight="34.0" prefWidth="237.0" textFill="#8a4242" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
@@ -121,7 +122,6 @@
                   <Insets left="2.0" />
                </padding>
             </Label>
-            <DatePicker fx:id="dpNascimento" prefHeight="25.0" prefWidth="372.0" promptText="Clique no Botão Para escolher a Data de Aniversário" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="boxDepartamento" prefHeight="25.0" prefWidth="370.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>

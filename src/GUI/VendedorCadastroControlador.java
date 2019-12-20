@@ -1,10 +1,12 @@
 package GUI;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -139,10 +141,32 @@ public class VendedorCadastroControlador implements Initializable {
 		}
 
 		obj.setNome(campoNome.getText());
+		
+		if (campoEmail.getText() == null || campoEmail.getText().trim().equals("")) {
+			excecao.addErro("Email", "Campo não pode estar vazio");
+		}
 
-		if (excecao.getError().size() != 0) {
+		obj.setEmail(campoEmail.getText());
+		
+		if (dpNascimento.getValue() == null) {
+			excecao.addErro("DataNascimento", "Campo não pode estar vazio");
+		} else {
+			Instant instante = Instant.from(dpNascimento.getValue().atStartOfDay(ZoneId.systemDefault()));	
+			obj.setDataNascimento(Date.from(instante));
+		}
+
+		if (campoBaseSalarial.getText() == null || campoBaseSalarial.getText().trim().equals("")) {
+			excecao.addErro("BaseSalarial", "Campo não pode estar vazio");
+		}
+
+		obj.setSalarioBase(Utils.converToDouble(campoBaseSalarial.getText()));
+		
+		obj.setDepartamento(boxDepartamento.getValue());
+		
+		if (excecao.getError().size() > 0) {
 			throw excecao;
 		}
+		
 		return obj;
 	}
 
@@ -188,10 +212,15 @@ public class VendedorCadastroControlador implements Initializable {
 
 	private void setErroMensagemLabel(Map<String, String> erro) {
 		Set<String> campos = erro.keySet();
-
-		if (campos.contains("Nome")) {
-			lblErroNome.setText(erro.get("Nome"));
-		}
+		
+		lblErroNome.setText(campos.contains("Nome") ? erro.get("Nome") : "");
+		
+		lblErroEmail.setText(campos.contains("Email") ? erro.get("Email") : "");
+		
+		lblErroBaseSalarial.setText(campos.contains("BaseSalarial") ? erro.get("BaseSalarial") : "");
+		
+		lblErroNascimento.setText(campos.contains("DataNascimento") ? erro.get("DataNascimento") : "");
+		
 	}
 
 	public void carregarObjetosAssociados() {
